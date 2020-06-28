@@ -1,0 +1,46 @@
+.bg-black{
+    background-color: #161616;
+}
+
+.navbar {
+    padding: 15px;
+}
+
+.font-custom {
+    font-family: 'Roboto Slab', serif;
+}
+
+h1{
+    color: #161616;
+    font-size: 22px;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+}
+
+h2{
+    color: #4d4d4d;
+    font-size: 22px;
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+}
+
+.category-btn {
+    background-color: #c2c2c2;
+    margin-left: 15px;
+    padding: 10px 5px;
+    text-align: center;
+    border-right: 1px solid #161616;
+}
+
+.category-btn:hover {
+    background-color: #acacac;
+    margin-left: 15px;
+    padding: 10px 5px;
+    text-align: center;
+    border-right: 1px solid #161616;
+}
+
+.recommended {
+    background-color:#fffaf5;
+}
