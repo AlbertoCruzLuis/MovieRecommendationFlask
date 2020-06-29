@@ -1,0 +1,53 @@
+.bg-black{
+    background-color: #161616;
+}
+
+.navbar {
+    padding: 15px;
+}
+
+.font-custom {
+    font-family: 'Roboto Slab', serif;
+}
+
+.btn-rounded
+{
+    border-radius: 10px;
+    border: 2px solid;
+    border-color: #28a745;
+}
+
+h1{
+    color: #161616;
+    font-size: 5vw;
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+}
+
+p {
+    color: #161616;
+    font-size: 3vw;
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+}
+
+.content {
+    position: relative;
+}
+
+.text-up {
+    position: absolute;
+    top: 20%;
+    left: 25%;
+}
+
+.btn-outline-white {
+    color: #ffffff;
+    border-color: #ffffff;
+    border: 2px solid;
+    border-radius: 10px;
+}
+
+.content .text-up .btn:hover  {
+    background-color: #ffffff;
+}
