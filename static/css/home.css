@@ -44,3 +44,17 @@ h2{
 .recommended {
     background-color:#fffaf5;
 }
+
+.btn-rounded
+{
+    border-radius: 10px;
+    border: 2px solid;
+    border-color: #28a745;
+}
+
+p {
+    color: #161616;
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+}

@@ -5,4 +5,5 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    #SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost/movie_recomendation'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost/movie_recomendation'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False

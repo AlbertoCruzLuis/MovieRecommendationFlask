@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@340&display=swap" rel="stylesheet">
 
     <title>Movie Recomendation</title>
@@ -32,34 +32,26 @@
     </nav>
 
     <!-- Content -->
-    <div class="container">
-      <br>
-      <div class="slogan">
-        <br>
-        <h1>The best Movie Recomendation</h1>
-        <br>
-        <p>The latest recommendation system technology at your fingertips</p>
-        <br>
-      </div>
-    </div>
-    
-    <hr>
-    <br>
-
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="card col-sm mr-3 ml-3 mb-3">
-                <img class="card-img-top img-rounded mt-2 mb-2" src="/static/img/FastandFurious.jpg">
-            </div>
-            <div class="card col-sm mr-3 ml-3 mb-3">
-                <img class="card-img-top img-rounded mt-2 mb-2" src="/static/img/the_edge_of_seventeen.jpg">
-            </div>
-            <div class="card col-sm mr-3 ml-3 mb-3">
-                <img class="card-img-top img-rounded mt-2 mb-2" src="/static/img/2012findelmundo.jpg">
+    <div class="bg-image">
+        <br><br>
+        <div class="container">
+            <div class="login-content">
+                <br>
+                <h1>Sign Up</h1>
+                <form class="form-content" method="POST">
+                    <input class="username-container mt-2 mb-3" name="username" type="text" placeholder="Username" maxlength="50" required>
+                    <input class="password-container mb-3" name="password" type="password" placeholder="Password" maxlength="66" required>
+                    <input class="password-container mb-3" name="confirm_password" type="password" placeholder="Confirm Password" maxlength="66" required>
+                    <button class="btn btn-info mt-3 mb-3" type="submit" href="/login">Sign Up</button>
+                </form>
+                <br>
             </div>
         </div>
-        <br>
+        <br><br>
     </div>
+    
+    
+    
 
     <!-- Footer -->
     <footer class="page-footer font-small bg-black pt-4">
@@ -73,7 +65,7 @@
               <h5 class="mb-1 text-white font-custom">Register for free</h5>
             </li>
             <li class="list-inline-item">
-              <a href="/signup" class="btn btn-outline-success btn-rounded text-white font-custom">Sign up!</a>
+              <a href="#!" class="btn btn-outline-success btn-rounded text-white font-custom">Sign up!</a>
             </li>
           </ul>
           <!-- Call to action -->

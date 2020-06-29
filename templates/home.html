@@ -15,20 +15,23 @@
   <body>
     <!-- Header -->
     <nav class="navbar navbar-dark bg-black">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <div class="container">
-                <a class="navbar-brand font-custom" href="#">
+                <a class="navbar-brand font-custom" href="/">
                     <img src="/static/img/claqueta.png" width="32" height="32">
                     Movie Recomendation
                 </a>
             </div>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-9">
             <div class="float-right">
-                <form class="form-inline ">
-                <input class="form-control form-control-sm" type="text" placeholder="Search"
-                    aria-label="Search">
-                <i class="fas fa-search" aria-hidden="true"></i>
+                <a href="/logout" class="btn btn-info">
+                    <span class="glyphicon glyphicon-log-out"></span> Log out
+                </a>
+            </div>
+            <div class="float-left">
+                <form class="form-content" method="POST">
+                    <input class="search-container" name="search" type="text" placeholder="Search">
                 </form>
             </div>
         </div>
@@ -71,6 +74,34 @@
 
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small bg-black pt-4">
+
+        <!-- Footer Elements -->
+        <div class="container">
+      
+          <!-- Call to action -->
+          <ul class="list-unstyled list-inline text-center py-2">
+            <li class="list-inline-item">
+              <h5 class="mb-1 text-white font-custom">Register for free</h5>
+            </li>
+            <li class="list-inline-item">
+              <a class="btn btn-outline-success btn-rounded text-white font-custom" href="/signup">Sign up!</a>
+            </li>
+          </ul>
+          <!-- Call to action -->
+      
+        </div>
+        <!-- Footer Elements -->
+      
+        <!-- Copyright -->
+        <div class="footer-copyright text-center text-white-50 py-3 font-custom">© 2020 Copyright:
+          <a class="text-white font-custom" href="/"> Mipagina.com</a>
+        </div>
+        <!-- Copyright -->
+      
+    </footer>
 
     <!-- Optional JavaScript -->
     <script src="/static/js/bootstrap.min.js"></script>

@@ -1,3 +1,9 @@
+body {
+    background-image: url('/static/img/FondoPelicula.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
 .bg-black{
     background-color: #161616;
 }
@@ -38,6 +44,10 @@ p {
 
 .card-img {
     border-radius: 10px;
+}
+
+.slogan {
+    background-color: #ffffffea;
 }
 
 
