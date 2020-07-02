@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/home.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@340&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"/>
 
     <title>Movie Recomendation</title>
   </head>
@@ -25,8 +26,8 @@
         </div>
         <div class="col-sm-9">
             <div class="float-right">
-                <a href="/logout" class="btn btn-info">
-                    <span class="glyphicon glyphicon-log-out"></span> Log out
+                <a class="btn btn-info" href="/logout">
+                    Log out
                 </a>
             </div>
             <div class="float-left">
@@ -40,38 +41,19 @@
     <div class="row">
         <!-- Category -->
         <div class="category col-3 mt-2">
-            <h2>Category</h2>
-            <div class="category-btn">
-                <a class="btn-item" href="#">Accion</a>
-            </div>
-            <div class="category-btn">
-                <a class="btn-item" href="#">Comedia</a>
-            </div>
-            <div class="category-btn">
-                <a class="btn-item" href="#">Drama</a>
-            </div>
+          <h2>Category</h2>
+          {% for category in list_category %}
+          <div class="category-btn">
+              <a class="btn-item" href="/home/{{category}}">{{ category }}</a>
+          </div>
+          {% endfor %}
         </div>
-        <!-- Content -->
         <div class="content col-9">
-            <div class="recommended">
-                <br>
-                <h1>Recommended</h1>
-                <div class="row mt-3">
-                    <div class="card col-sm mr-3 ml-3 mb-3">
-                        <img class="card-img-top img-rounded mt-2 mb-2" src="/static/img/FastandFurious.jpg">
-                    </div>
-                    <div class="card col-sm mr-3 ml-3 mb-3">
-                        <img class="card-img-top img-rounded mt-2 mb-2" src="/static/img/FastandFurious.jpg">
-                    </div>
-                    <div class="card col-sm mr-3 ml-3 mb-3">
-                        <img class="card-img-top img-rounded mt-2 mb-2" src="/static/img/FastandFurious.jpg">
-                    </div>
-                    <div class="card col-sm mr-3 ml-3 mb-3">
-                        <img class="card-img-top img-rounded mt-2 mb-2" src="/static/img/FastandFurious.jpg">
-                    </div>
-                </div>
-            </div>
-
+          {% if category_name %}
+            {% include 'content_category.html' %}
+          {% else %}
+            {% include 'recommended.html' %}
+          {% endif %}
         </div>
     </div>
 

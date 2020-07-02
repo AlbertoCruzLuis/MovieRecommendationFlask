@@ -7,3 +7,5 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost/movie_recomendation'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    UPLOAD_FOLDER = 'static/img/film/'
+    ALLOWED_EXTENSIONS = {'jpg'}

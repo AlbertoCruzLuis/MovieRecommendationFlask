@@ -1,0 +1,20 @@
+{% block content %}
+<!-- Content -->
+<div class="recommended">
+  <br />
+  <h1>Recommended</h1>
+  <div class="row no-gutters mt-3">
+    {% for film in recommended_film %}
+    <div class="card col-sm mr-3 mb-3">
+      <img
+        class="card-img-top img-rounded"
+        src="/static/img/film/{{ film['image_name'] }}"
+      />
+      <div class="card-body">
+        <h6 class="card-title">{{ film['title'] }}</h6>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

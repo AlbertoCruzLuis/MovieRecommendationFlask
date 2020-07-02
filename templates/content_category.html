@@ -1,0 +1,21 @@
+{% block content %}
+<div class="recommended">
+  <br />
+  <h1>{{ category_name }}</h1>
+  {% for film in film_data %}
+  <div class="card mb-3" style="max-width: 620px;">
+    <div class="row no-gutters">
+      <div class="col-md-3">
+        <img class="card-img" src="/static/img/film/{{ film['image_name'] }}" />
+      </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h5 class="card-title">Title: {{ film['title'] }}</h5>
+          <h6 class="card-title">Year: {{ film['year'] }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
