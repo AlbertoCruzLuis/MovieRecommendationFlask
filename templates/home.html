@@ -16,25 +16,28 @@
   <body>
     <!-- Header -->
     <nav class="navbar navbar-dark bg-black">
-        <div class="col-sm-3">
+        <div class="col-nav">
             <div class="container">
                 <a class="navbar-brand font-custom" href="/">
                     <img src="/static/img/claqueta.png" width="32" height="32">
-                    Movie Recomendation
+                    <span id="text">Movie Recomendation</span> 
                 </a>
             </div>
         </div>
-        <div class="col-sm-9">
+        <div class="col-nav">
             <div class="float-right">
-                <a class="btn btn-info" href="/logout">
-                    Log out
-                </a>
-            </div>
-            <div class="float-left">
                 <form class="form-content" method="POST">
-                    <input class="search-container" name="search" type="text" placeholder="Search">
+                    <input class="search-container" name="search" type="text" placeholder="Search...">
+                    <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
+        </div>
+        <div class="col-nav">
+          <div class="float-right">
+            <a class="btn btn-info" href="/logout">
+                Log out
+            </a>
+          </div>
         </div>
     </nav>
 
@@ -49,10 +52,15 @@
           {% endfor %}
         </div>
         <div class="content col-9">
-          {% if category_name %}
-            {% include 'content_category.html' %}
+          {% include 'flash_message.html' %}
+          {% if find_film %}
+            {% include 'search.html' %}
           {% else %}
-            {% include 'recommended.html' %}
+            {% if category_name %}
+              {% include 'content_category.html' %}
+            {% else %}
+              {% include 'recommended.html' %}
+            {% endif %}
           {% endif %}
         </div>
     </div>
@@ -87,5 +95,6 @@
 
     <!-- Optional JavaScript -->
     <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/flash_timeout.js"></script>
   </body>
 </html>

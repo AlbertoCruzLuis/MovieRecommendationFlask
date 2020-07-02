@@ -1,8 +1,7 @@
 {% block content %}
 <div class="content-category">
   <br />
-  <h1>{{ category_name }}</h1>
-  {% for film in film_data %}
+  {% for film in find_film %}
   <div class="card mb-3" style="max-width: 576px;">
     <div class="row no-gutters">
       <div class="col-md">

@@ -64,3 +64,8 @@ p {
     text-align: center;
     font-family: 'Roboto Slab', serif;
 }
+
+.alert {
+    width: 100%;
+    padding: 10px;
+}

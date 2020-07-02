@@ -41,7 +41,8 @@
                 <form class="form-content" method="POST">
                     <input class="username-container mt-2 mb-3" name="username" type="text" placeholder="Username" maxlength="50" required>
                     <input class="password-container mb-3" name="password" type="password" placeholder="Password" maxlength="66" required>
-                    <button class="btn btn-info mt-3 mb-3" type="submit" href="/home">Log In</button>
+                    {% include 'flash_message.html' %}
+                    <button class="btn btn-info mt-3 mb-3" type="submit">Log In</button>
                 </form>
                 <br>
             </div>
@@ -82,5 +83,6 @@
 
     <!-- Optional JavaScript -->
     <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/flash_timeout.js"></script>
   </body>
 </html>

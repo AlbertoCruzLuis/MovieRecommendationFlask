@@ -42,12 +42,17 @@ p {
     background-color: rgb(180, 180, 180);
 }
 
+.card:hover {
+    transform: scale(1.03);
+}
+
 .card-img {
     border-radius: 10px;
 }
 
 .slogan {
     background-color: #ffffffea;
+    border-radius: 6px;
 }
 
 
