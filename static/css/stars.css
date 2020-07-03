@@ -1,0 +1,30 @@
+.rating-stars a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-image: url("/static/img/rating-star.png");
+    outline: none;
+  }
+  .rating-stars a.hover {
+    background-image: url("/static/img/rating-star-yellow.png");
+  }
+  .rating-stars a.selected {
+    background-image: url("/static/img/rating-star-yellow.png");
+  }
+
+.rating-stars {
+  position: absolute;
+  bottom: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .rating-stars {
+    position: relative;
+    bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 1px;
+  }
+}

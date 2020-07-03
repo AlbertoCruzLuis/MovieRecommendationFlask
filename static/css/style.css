@@ -55,4 +55,10 @@ p {
     border-radius: 6px;
 }
 
+.bg-image {
+    background-image: url('/static/img/FondoPelicula.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 

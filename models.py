@@ -31,10 +31,12 @@ class Film(db.Model):
     title = db.Column(db.String(70), unique=True, nullable=False)
     year = db.Column(db.Integer, nullable=False)
     category = db.Column(db.String(70), nullable=False)
+    rating = db.Column(db.Integer, default = 0)
     image_name = db.Column(db.String(70), unique=True, nullable=False)
 
 
-    def __init__(self, title, year, image_name):
+    def __init__(self, title, year, category, image_name):
         self.title = title
         self.year = year
+        self.category = category
         self.image_name = image_name

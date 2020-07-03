@@ -31,6 +31,7 @@ h2{
 
 .btn-item:hover {
     color: #161616;
+    text-decoration: none;
 }
 
 .category-btn {
@@ -80,13 +81,13 @@ p {
 }
 
 form .search-container {
-    padding: 5px;
+    padding: 6px;
     border-radius: 5px;
     border: 0px;
 }
 
 form button {
-    padding: 5px 10px 5px 10px;
+    padding: 6px 12px 6px 12px;
     background: #17a2b8;
     color: #ffffff;
     border-radius: 5px;
@@ -94,19 +95,65 @@ form button {
     cursor: pointer;
   }
 
+form button:hover {
+    background-color: #138496;
+}
+
+.card-body{
+    height: 100%;
+}
+
+.column {
+    width: 65%;
+}
+
+.navbar-nav {
+    border-top: 1px solid #e1e4e867;
+    padding-top: 10px;
+}
+
+.col-nav {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.desktop-mode {
+    width: 60%;
+}
+
+.phone-mode {
+    width: 100%;
+}
+
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 600px) {
     .col-sm {
         flex-basis: auto;
     }
     .col-md {
         flex-basis: auto;
+    }
+    .column {
+        width: 100%;
+    }
+    .category{
+        display: none;
+    }
+    .col-9{
+        max-width: 100%;
+        flex: none;
+    }
+    .content-category {
+        padding: 5px 25px 10px 25px;
+    }
+    .desktop-mode {
+        display: none;
     }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: 600px) {
     .col-sm {
         flex-basis: 33%;
         max-width: 50%;
@@ -114,6 +161,15 @@ form button {
     .col-md {
         flex-basis: 33%;
         max-width: 50%;
+    }
+    .col-nav {
+        padding: 0 0 0 0;
+    }
+    .phone-mode {
+        display: none;
+    }
+    .navbar-toggler {
+        display: none;
     }
 }
 
@@ -127,6 +183,9 @@ form button {
         flex-basis: 25%;
         max-width: 30%;
     }
+    .phone-mode {
+        display: none;
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -135,6 +194,9 @@ form button {
         flex-basis: 15%;
         max-width: 100%;
     }
+    .phone-mode {
+        display: none;
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -142,5 +204,8 @@ form button {
     .col-sm {
         flex-basis: 10%;
         max-width: 100%;
+    }
+    .phone-mode {
+        display: none;
     }
 }

@@ -7,10 +7,17 @@
       <div class="col-md">
         <img class="card-img" src="/static/img/film/{{ film['image_name'] }}" />
       </div>
-      <div class="col-md">
+      <div class="column">
         <div class="card-body">
           <h5 class="card-title">Title: {{ film['title'] }}</h5>
           <h6 class="card-title">Year: {{ film['year'] }}</h6>
+          <div id="rating-stars" class="rating-stars" value="{{ film['rating'] }}">
+            <a href="" data-rating="1"></a>
+            <a href="" data-rating="2"></a>
+            <a href="" data-rating="3"></a>
+            <a href="" data-rating="4"></a>
+            <a href="" data-rating="5"></a>
+          </div>
         </div>
       </div>
     </div>

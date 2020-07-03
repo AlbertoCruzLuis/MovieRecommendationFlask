@@ -74,16 +74,19 @@ def logout():
 @app.route('/signup', methods= ['GET','POST'])
 def signup():
     if request.method == 'POST':
-        user = User(request.form['username'],
-                    request.form['password'])
-        db_user = User.query.filter_by(username = user.username).first()
-        if db_user is None:
-            db.session.add(user)
-            db.session.commit()
-            flash('Successful user','success')
-            return redirect(url_for('login'))
+        if request.form['password'] != request.form['confirm_password']:
+            flash('Different password','danger')
         else:
-            flash('User already exists','warning')
+            user = User(request.form['username'],
+                        request.form['password'])
+            db_user = User.query.filter_by(username = user.username).first()
+            if db_user is None:
+                db.session.add(user)
+                db.session.commit()
+                flash('Successful user','success')
+                return redirect(url_for('login'))
+            else:
+                flash('User already exists','warning')
     return render_template('signup.html')
 
     
