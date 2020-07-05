@@ -1,73 +1,82 @@
-function ready(fn) {
-    if(document.readyState != 'loading') {
-      fn();
-    } else {
-      document.addEventListener('DOMContentLoaded', fn);
+
+
+let rating = document.querySelectorAll(".rating");
+let stars = [];
+let value_rating = [];
+
+function change_rating(value, name_rating){
+  $.ajax({
+    type: 'POST',
+    url : '/home/rating',
+    data : {'rating':value,'name_rating':name_rating},
+    dataType: "json"
+  }).done( function() {
+    console.log( 'Success!!' );
+  }).fail( function() {
+      console.log( 'Error!!' );
+  });
+}
+
+function get_value_rating(){
+  for (let i = 0; i < rating.length; i++) {
+    stars.push(rating[i].querySelectorAll("input"));
+    value_rating.push(rating[i].getAttribute('value'));
+  }
+}
+
+// Fill Rating get database
+function rating_database(){
+  for (let i = 0; i < stars.length; i++) {
+    for (let j = 0; j < stars[i].length; j++) {
+      if (value_rating[i]-1 >= j)
+      {
+        stars[i][j].style.backgroundImage = "url('/static/img/rating-star-yellow.png')";
+      }
+      else{
+        stars[i][j].style.backgroundImage = "url('/static/img/rating-star.png')";
+      }
     }
   }
+}
+
+function control_rating(i,j){
+  let add = j;
+  while(add >= 0){
+    stars[i][add].style.backgroundImage = "url('/static/img/rating-star-yellow.png')";
+    add--;
+  }
+  let remove = j+1;
+  while(remove < 5){
+    stars[i][remove].style.backgroundImage = "url('/static/img/rating-star.png')";
+    remove++;
+  }
+}
+
+window.onload = function()
+{
+  get_value_rating();
+  rating_database();
   
-  var selectedRating = parseInt(document.getElementById('rating-stars').getAttribute("value"));
-  
-  ready(function(){
-  
-    function addClass(el, className) {
-      if(typeof el.length == "number") {
-        Array.prototype.forEach.call(el, function(e,i){ addClass(e, className) });
-        return;
+
+  // Fill Rating for action user
+  for (let i = 0; i < stars.length; i++) {
+    for (let j = 0; j < stars[i].length; j++) {
+      if (stars[i][j].onmouseover = function(){
+        control_rating(i,j);
+      })
+      if (stars[i][j].onmouseout = function(){
+        get_value_rating();
+        rating_database();
+      })
+      if (stars[i][j].onclick = function(e){
+        control_rating(i,j);
+        //Post of data rating
+        name_rating = rating[i].getAttribute('name');
+        rating[i].setAttribute('value',j+1);
+        console.log(name_rating);
+        change_rating(j+1,name_rating);
+      }){
       }
-      if (el.classList)
-        el.classList.add(className);
-      else
-        el.className += ' ' + className;    
     }
-    function removeClass(el, className) {
-      if(typeof el.length == "number") {
-        Array.prototype.forEach.call(el, function(e,i){ removeClass(e, className) });
-        return;
-      }
-      if (el.classList)
-        el.classList.remove(className);
-      else if(el.className)
-        el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-    }
-  
-    var stars = document.querySelectorAll(".rating-stars a");
-    Array.prototype.forEach.call(stars, function(el, i){
-      // el.addEventListener("mouseover", function(evt){
-      //   removeClass(stars, "selected");
-      //   // For each star up to the highlighted one, add "hover"
-      //   var to = parseInt(evt.target.getAttribute("data-rating"));
-      //   Array.prototype.forEach.call(stars, function(star, i) {
-      //     if(parseInt(star.getAttribute("data-rating")) <= to) {
-      //       addClass(star, "hover");
-      //     }
-      //   });
-      // });
-      // el.addEventListener("mouseout", function(evt){
-      //   removeClass(evt.target, "hover");
-      // });
-      el.addEventListener("click", function(evt){
-        selectedRating = parseInt(evt.target.getAttribute("data-rating"));
-        removeClass(stars, "selected");
-        Array.prototype.forEach.call(stars, function(star, i) {
-          if(parseInt(star.getAttribute("data-rating")) <= selectedRating) {
-            addClass(star, "selected");
-          }
-        });      
-        evt.preventDefault();
-      });
-    });
-    document.querySelector(".rating-stars").addEventListener("mouseout", function(evt){
-      // When the cursor leaves the whole rating star area, remove the "hover" class and apply 
-      // the "selected" class to the number of stars selected.
-      removeClass(stars, "hover");
-      if(selectedRating) {
-        Array.prototype.forEach.call(stars, function(star, i) {
-          if(parseInt(star.getAttribute("data-rating")) <= selectedRating) {
-            addClass(star, "selected");
-          }
-        });      
-      }
-    });
-    
-  });
+  }
+}

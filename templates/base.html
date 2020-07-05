@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  {% block css %}
+  <!-- Css -->
+  {% endblock %}
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@340&display=swap" rel="stylesheet">
+
+  <title>{% block title %}{% endblock %}Movie Recomendation</title>
+</head>
+
+<body>
+  {% block header %}
+  <!-- Header -->
+  {% endblock %}
+
+  {% block content %}
+  <!-- Content -->
+  {% endblock %}
+
+
+  {% block footer %}
+  <!-- Footer -->
+  <footer class="page-footer font-small bg-black pt-4">
+
+    <!-- Footer Elements -->
+    <div class="container">
+
+      <!-- Call to action -->
+      <ul class="list-unstyled list-inline text-center py-2">
+        <li class="list-inline-item">
+          <h5 class="mb-1 text-white font-custom">Register for free</h5>
+        </li>
+        <li class="list-inline-item">
+          <a href="/signup" class="btn btn-outline-success btn-rounded text-white font-custom">Sign up!</a>
+        </li>
+      </ul>
+      <!-- Call to action -->
+
+    </div>
+    <!-- Footer Elements -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center text-white-50 py-3 font-custom">© 2020 Copyright:
+      <a class="text-white font-custom" href="/"> Mipagina.com</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  {% endblock %}
+
+  <!-- Optional JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  {% block js %}
+  <!-- Js -->
+  {% endblock %}
+</body>
+
+</html>

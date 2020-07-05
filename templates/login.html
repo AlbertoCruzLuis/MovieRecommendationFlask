@@ -1,88 +1,56 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "base.html" %}
+{{ super() }}
+{% block css %}
+<!-- Css -->
+<link rel="stylesheet" href="/static/css/login.css">
+{% endblock %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@340&display=swap" rel="stylesheet">
+{% block title %} Login - {% endblock %}
 
-    <title>Movie Recomendation</title>
-  </head>
-  <body>
-    <!-- Header -->
-    <nav class="navbar navbar-dark bg-black">
-        <div class="col-sm-6">
-            <div class="container">
-                <a class="navbar-brand font-custom" href="/">
-                    <img src="/static/img/claqueta.png" width="32" height="32">
-                    Movie Recomendation
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="float-right">
-                <a class="btn btn-info mr-3 font-custom" href="/login">Log in</a>
-                <a class="btn btn-success font-custom" href="/signup">Sign Up</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Content -->
-    <div class="bg-image">
-        <br><br>
-        <div class="container">
-            <div class="login-content">
-                <br>
-                <h1>Log In</h1>
-                <form class="form-content" method="POST">
-                    <input class="username-container mt-2 mb-3" name="username" type="text" placeholder="Username" maxlength="50" required>
-                    <input class="password-container mb-3" name="password" type="password" placeholder="Password" maxlength="66" required>
-                    {% include 'flash_message.html' %}
-                    <button class="btn btn-info mt-3 mb-3" type="submit">Log In</button>
-                </form>
-                <br>
-            </div>
-        </div>
-        <br><br>
+{% block header %}
+<!-- Header -->
+<nav class="navbar navbar-dark bg-black">
+  <div class="col-sm-6">
+    <div class="container">
+      <a class="navbar-brand font-custom" href="/">
+        <img src="/static/img/claqueta.png" width="32" height="32">
+        Movie Recomendation
+      </a>
     </div>
-    
-    
-    
+  </div>
+  <div class="col-sm-6">
+    <div class="float-right">
+      <a class="btn btn-info mr-3 font-custom" href="/login">Log in</a>
+      <a class="btn btn-success font-custom" href="/signup">Sign Up</a>
+    </div>
+  </div>
+</nav>
+{% endblock %}
 
-    <!-- Footer -->
-    <footer class="page-footer font-small bg-black pt-4">
+{% block content %}
+<!-- Content -->
+<div class="bg-image">
+  <br><br>
+  <div class="container">
+    <div class="login-content">
+      <br>
+      <h1>Log In</h1>
+      <form class="form-content" method="POST">
+        <input class="username-container mt-2 mb-3" name="username" type="text" placeholder="Username" maxlength="50"
+          required>
+        <input class="password-container mb-3" name="password" type="password" placeholder="Password" maxlength="66"
+          required>
+        {% include 'flash_message.html' %}
+        <button class="btn btn-info mt-3 mb-3" type="submit">Log In</button>
+      </form>
+      <br>
+    </div>
+  </div>
+  <br><br>
+</div>
+{% endblock %}
 
-        <!-- Footer Elements -->
-        <div class="container">
-      
-          <!-- Call to action -->
-          <ul class="list-unstyled list-inline text-center py-2">
-            <li class="list-inline-item">
-              <h5 class="mb-1 text-white font-custom">Register for free</h5>
-            </li>
-            <li class="list-inline-item">
-              <a href="/signup" class="btn btn-outline-success btn-rounded text-white font-custom">Sign up!</a>
-            </li>
-          </ul>
-          <!-- Call to action -->
-      
-        </div>
-        <!-- Footer Elements -->
-      
-        <!-- Copyright -->
-        <div class="footer-copyright text-center text-white-50 py-3 font-custom">© 2020 Copyright:
-          <a class="text-white font-custom" href="/"> Mipagina.com</a>
-        </div>
-        <!-- Copyright -->
-      
-      </footer>
-
-    <!-- Optional JavaScript -->
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/flash_timeout.js"></script>
-  </body>
-</html>
+{% block js %}
+<!-- Js -->
+<script src="/static/js/flash_timeout.js"></script>
+{% endblock %}

@@ -13,7 +13,7 @@
     background-image: url("/static/img/rating-star-yellow.png");
   }
 
-.rating-stars {
+.rating {
   position: absolute;
   bottom: 0;
   padding-top: 15px;
@@ -21,10 +21,21 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .rating-stars {
+  .rating {
     position: relative;
     bottom: 0;
     padding-top: 10px;
     padding-bottom: 1px;
   }
+}
+
+/*  */
+
+input[type="image"]:hover {
+  background-image: url("/static/img/rating-star-yellow.png");
+}
+
+input[type="image"]:focus {
+  outline: none;
+  background-image: url("/static/img/rating-star-yellow.png");
 }

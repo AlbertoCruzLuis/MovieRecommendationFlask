@@ -120,20 +120,32 @@ def home(section = None):
     all_film = list(db.engine.execute("select * from films"))
 
     recommended_film = random_film(all_film)
-    if section != None and section not in np.unique(category):
-        return redirect(url_for('home'))
 
     #Search Film
     find_film = []
     if request.method == 'POST':
         find_film = search_film(all_film)
 
+    if section != 'search':
+        if section != None and section not in np.unique(category):
+            return redirect(url_for('home'))
 
     return render_template('home.html', category_name = section,
                             list_category = np.unique(category),
                             film_data = film_data,
                             recommended_film = recommended_film,
                             find_film = find_film)
+
+@app.route('/home/rating', methods= ['POST'])
+def change_rating():
+    new_rating = request.form['rating']
+    name_rating = request.form['name_rating']
+    update = Film.query.filter_by(id=name_rating).first()
+    update.rating = new_rating
+    db.session.commit()
+
+    response = {'status':200, 'rating':new_rating,'name_rating':name_rating}
+    return response
 
 
 if __name__ == '__main__':
