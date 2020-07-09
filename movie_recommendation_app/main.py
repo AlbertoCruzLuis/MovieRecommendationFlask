@@ -9,7 +9,7 @@ import os
 import re
 
 from .models import db, User, Film, Rating
-from .recomendation_model import recommended_model
+from .recommendation_model import recommended_model
 from .config import DevelopmentConfig
 
 main = Blueprint('main', __name__)
