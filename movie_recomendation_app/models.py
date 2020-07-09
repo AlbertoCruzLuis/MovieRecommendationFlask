@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
@@ -12,6 +13,8 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(128))
     created_date = db.Column(db.DateTime, default = datetime.now)
+
+    films = relationship('Film', secondary='ratings')
 
     def __init__(self, username, password):
         self.username = username
@@ -25,14 +28,15 @@ class User(db.Model):
 
 class Film(db.Model):
 
-    __tablename__ = 'films'
+    __tablename__ = 'film'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(70), unique=True, nullable=False)
     year = db.Column(db.Integer, nullable=False)
     category = db.Column(db.String(70), nullable=False)
-    rating = db.Column(db.Integer, default = 0)
     image_name = db.Column(db.String(70), unique=True, nullable=False)
+
+    users = relationship('User', secondary='ratings')
 
 
     def __init__(self, title, year, category, image_name):
@@ -40,3 +44,19 @@ class Film(db.Model):
         self.year = year
         self.category = category
         self.image_name = image_name
+
+class Rating(db.Model):
+    __tablename__ = 'ratings'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    film_id = db.Column(db.Integer, db.ForeignKey('film.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    rating = db.Column(db.Integer, default = 0)
+
+    user = relationship(User, backref="ratings")
+    film = relationship(Film, backref="ratings")
+
+    def __init__(self, film_id,user_id,rating):
+        self.film_id = film_id
+        self.user_id = user_id
+        self.rating = rating

@@ -1,57 +1,35 @@
 from flask import Flask
-from flask import render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask import request, session
 
-from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
-from views import CustomAdminIndexView, CustomFileAdmin, FilmView
-import forms
-from models import db
-import numpy as np
-from models import User, Film
 from sqlalchemy.sql import text
 import random
-
-from config import DevelopmentConfig
+import numpy as np
 import os
 import re
 
-app = Flask(__name__, static_url_path='/static')
-app.config.from_object(DevelopmentConfig)
+from .models import db, User, Film, Rating
+from .recomendation_model import recommended_model
+from .config import DevelopmentConfig
 
-admin = Admin(app, index_view= CustomAdminIndexView())
-#admin.add_view(ModelView(User, db.session))
-# admin.add_view(ModelView(Film, db.session))
-admin.add_view(FilmView(Film, db.session))
+main = Blueprint('main', __name__)
 
-path = os.path.join(os.path.dirname(__file__), 'static/img/film')
-fileadmin = CustomFileAdmin(path, name='Films Image')
-fileadmin.allowed_extensions = DevelopmentConfig.ALLOWED_EXTENSIONS
-admin.add_view(fileadmin)
-
-@app.errorhandler(404)
+@main.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
-@app.before_request
+@main.before_request
 def before_request():
     if 'username' not in session and request.endpoint in ['home']:
-        return redirect(url_for('login'))
+        return redirect(url_for('.login'))
     elif 'username' in session and request.endpoint in ['login', 'signup']:
-        return redirect(url_for('home'))
-
-def create_super_user():
-    user = User('admin','admin')
-    db_user = User.query.filter_by(username = user.username).first()
-    if db_user is None:
-        db.session.add(user)
-        db.session.commit()
+        return redirect(url_for('.home'))
             
-@app.route('/')
+@main.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/login', methods= ['GET','POST'])
+@main.route('/login', methods= ['GET','POST'])
 def login():
     if request.method == 'POST':
         session['username'] = request.form['username']
@@ -59,19 +37,20 @@ def login():
         password = request.form['password']
 
         user = User.query.filter_by(username = username).first()
+        session['current_user_id'] = user.id
         if user is not None and user.verify_password(password):
-            return redirect(url_for('home'))
+            return redirect(url_for('.home'))
         else:
             flash('Wrong Password','danger')
     return render_template('login.html')
 
-@app.route('/logout')
+@main.route('/logout')
 def logout():
     if 'username' in session:
-        session.pop('username')
-    return redirect(url_for('index'))
+        session.clear()
+    return redirect(url_for('.index'))
 
-@app.route('/signup', methods= ['GET','POST'])
+@main.route('/signup', methods= ['GET','POST'])
 def signup():
     if request.method == 'POST':
         if request.form['password'] != request.form['confirm_password']:
@@ -84,7 +63,7 @@ def signup():
                 db.session.add(user)
                 db.session.commit()
                 flash('Successful user','success')
-                return redirect(url_for('login'))
+                return redirect(url_for('.login'))
             else:
                 flash('User already exists','warning')
     return render_template('signup.html')
@@ -100,26 +79,51 @@ def random_film(all_film):
             aux_all_film.remove(random_film)
     return selected_films
 
+def get_film_data(all_film, list_name_film):
+    aux_all_film = all_film[:]
+    selected_films = []
+    for i in range(4):
+        if len(aux_all_film) > 0:
+            for film in aux_all_film:
+                if list_name_film[i] == film['title']:
+                    selected_films.append(film)
+                    aux_all_film.remove(film)
+    return selected_films
+
 def search_film(all_film):
     find_film = []
     for film in all_film:
         if re.search((request.form['search']).lower(),(film['title']).lower()):
             find_film.append(film)
-            print(film)
 
     if len(find_film) == 0:
         flash('Not Found','warning')
     return find_film
 
-@app.route('/home', methods= ['GET','POST'])
-@app.route('/home/<section>', methods= ['GET','POST'])
+
+@main.route('/home', methods= ['GET','POST'])
+@main.route('/home/<section>', methods= ['GET','POST'])
 def home(section = None):
     # Query Database
-    category = list(db.engine.execute('select category from films'))
-    film_data = list(db.engine.execute(text("select * from films where category = :section"), section = section))
-    all_film = list(db.engine.execute("select * from films"))
-
+    current_user_id = session['current_user_id']
+    category = list(db.engine.execute('select category from film'))
+    film_data = list(db.engine.execute(
+        text("select f.*, coalesce((select rating from ratings where user_id = :current_user_id and film_id = f.id),0) as rating from film as f where category = :section"),
+        section = section, current_user_id = current_user_id))
+    all_film = list(db.engine.execute("select * from film"))
+    rating_film = list(db.engine.execute(
+        text("select f.*, coalesce((select rating from ratings where user_id = :current_user_id and film_id = f.id),0) as rating from film as f"),
+        current_user_id = current_user_id))
     recommended_film = random_film(all_film)
+    action_lover = []
+    for film in rating_film:
+        if film[5] > 0:
+            action_lover.append((film[1],film[5]))
+    #recommended_film = recommended_model(action_lover)
+    if len(recommended_model(action_lover)) >= 4:
+        recommended_film = get_film_data(all_film,recommended_model(action_lover))
+    else:
+        recommended_film = random_film(all_film)
 
     #Search Film
     find_film = []
@@ -134,25 +138,24 @@ def home(section = None):
                             list_category = np.unique(category),
                             film_data = film_data,
                             recommended_film = recommended_film,
-                            find_film = find_film)
+                            find_film = find_film,
+                            rating_film=rating_film)
 
-@app.route('/home/rating', methods= ['POST'])
+@main.route('/home/rating', methods= ['POST'])
 def change_rating():
+    current_user_id = session['current_user_id']
     new_rating = request.form['rating']
     name_rating = request.form['name_rating']
-    update = Film.query.filter_by(id=name_rating).first()
-    update.rating = new_rating
+    rating = Rating(name_rating,current_user_id,new_rating)
+    db_rating = Rating.query.filter_by(
+        film_id = rating.film_id).filter_by(
+        user_id = rating.user_id).first()
+
+    if db_rating is not None:
+        db_rating.rating = new_rating
+    else:
+        db.session.add(rating)
     db.session.commit()
 
     response = {'status':200, 'rating':new_rating,'name_rating':name_rating}
     return response
-
-
-if __name__ == '__main__':
-    db.init_app(app)
-
-    with app.app_context():
-        db.create_all()
-        create_super_user()
-
-    app.run(port = 8000)
